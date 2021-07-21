@@ -46,4 +46,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with: 
         name: ${{ env.SPINNAKER_VERSION }}-Install-Scripts
-        path: ./${SPINNAKER_VERSION}.yml
+        path: ${SPINNAKER_VERSION}.yml
