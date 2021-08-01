@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Spinnaker Pre Install
+env:
+  SPINNAKER_VERSION: 1.26.6
+  #REGISTRY_URL: "gcr.io/spinnaker-marketplace/"
+  REGISTRY_URL: "us-docker.pkg.dev/spinnaker-community/docker/"
+  NEW_REGISTRY_URL: "registry.cn-beijing.aliyuncs.com/spinnaker-cd/"
+  NEW_REGISTRY_URL2: "docker.io/spinnakercd/"
+  TAG_FILE: "tagfile.txt"
+  BOM_DIR: ".boms"
+
+on:
+  push:
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+      
+    ##
+#     - name: 01-安装Halyard部署工具
+#       run: |
+#         chmod +x ./InstallHalyard.sh
+#         ls 
+#         sleep 2
+#         sudo bash -x InstallHalyard.sh --user runner -y
+#         sleep 5
+#         hal -v    
+#     ## 
+    - name: pull
+      run: |
+        docker pull gcr.io/kubernetes-spinnaker/redis-cluster:v2
+        docker save gcr.io/kubernetes-spinnaker/redis-cluster:v2 -o redis.tar
+        mkdir artifacts
+        mv redis.tar artifacts/
+        
+       
+    - uses: actions/upload-artifact@v2
+      with: 
+        name: artifacts
+        path:  artifacts/*
+
