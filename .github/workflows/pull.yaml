@@ -36,7 +36,7 @@ jobs:
         docker pull k8s.gcr.io/cluster-proportional-autoscaler-amd64:1.6.0
         docker save k8s.gcr.io/cluster-proportional-autoscaler-amd64:1.6.0 -o autoscaler.tar
         mkdir artifacts
-        mv redis.tar artifacts/
+        mv autoscaler.tar artifacts/
         
        
     - uses: actions/upload-artifact@v2
